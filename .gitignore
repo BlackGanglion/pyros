@@ -1,0 +1,4 @@
+node_modules/
+check/
+*.log
+yarn.lock

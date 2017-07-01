@@ -1,0 +1,28 @@
+{
+  "name": "pyros",
+  "version": "0.1.0",
+  "description": "A Create And Test Tool",
+  "main": "lib/index",
+  "scripts": {
+    "start": "npm run build:live",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
+    "build:all": "tsc && tnpm link"
+  },
+  "bin": {
+    "pyros": "bin/pyros.js"
+  },
+  "author": "BlackGanglion",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^7.0.27",
+    "nodemon": "^1.11.0",
+    "ts-node": "^3.0.4"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "commander": "^2.9.0",
+    "inquirer": "^3.1.1",
+    "jsonfile": "^3.0.0",
+    "typescript": "^2.3.4"
+  }
+}
