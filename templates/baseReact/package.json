@@ -2,10 +2,6 @@
   "name": "${projectName}",
   "version": "1.0.0",
   "description": "${projectName} create by Pyros",
-  "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js",
-    "lint": "eslint src --quiet --cache"
-  },
   "author": "${author}",
   "license": "ISC",
   "devDependencies": {

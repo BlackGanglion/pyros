@@ -4,15 +4,20 @@
     "target": "es5",
     "noImplicitAny": false,
     "sourceMap": false,
-    "lib": [ "es2015" ],
-    "typeRoots": ["node_modules/@types"],
+    "lib": [
+      "es2015"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "outDir": "lib",
     "declaration": false
   },
   "exclude": [
     "lib",
     "templates",
-    "example",
-    "node_modules"
+    "check",
+    "node_modules",
+    "test"
   ]
 }

@@ -9,7 +9,6 @@ const codeMap = {
 function errorLog(code, codeContent) {
   const errorMsg = `${codeMap[code]}: ${codeContent}`;
   console.error(errorMsg);
-  throw new Error(errorMsg);
 }
 
 export {

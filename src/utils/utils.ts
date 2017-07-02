@@ -4,7 +4,7 @@
 import * as jsonfile from 'jsonfile';
 
 /**
- * 写入 JSON 文件
+ * 写入 json 文件
  * @param path 
  * @param content 
  */
@@ -13,6 +13,19 @@ function writeJSONFile(path, content) {
     jsonfile.writeFile(path, content, {spaces: 2}, (err) => {
       if (err) reject(err);
       resolve();
+    });
+  });
+}
+
+/**
+ * 读取 json 文件
+ * @param path 
+ */
+function readJSONFile(path) {
+  return new Promise((resolve, reject) => {
+    jsonfile.readFile(path, function (err, obj) {
+      if (err) reject(err);
+      resolve(obj);
     });
   });
 }
@@ -33,5 +46,6 @@ function templateEngine(template: string, data: any) {
 
 export {
   writeJSONFile,
+  readJSONFile,
   templateEngine,
 }

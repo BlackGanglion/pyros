@@ -12,13 +12,18 @@ var sassLoader = [
 module.exports = {
   devtool: 'inline-source-map',
 
-  performance: {
-    hints: false,
-  },
-
   entry: {
-    app: './src/app',
-    vendors: ['react', 'react-dom'],
+    app: './src/app.ts',
+    vendors: [
+      '@angular/common',
+      '@angular/compiler',
+      '@angular/core',
+      '@angular/http',
+      '@angular/platform-browser',
+      '@angular/router',
+      'rxjs',
+      'zone.js',
+    ],
   },
 
   output: {
@@ -29,13 +34,18 @@ module.exports = {
 
   module: {
     rules: [{
-      test: /\.jsx?$/,
-      include: [
-        path.resolve(__dirname, 'src'),
-      ],
-      use: [
-        'babel-loader?cacheDirectory'
-      ],
+      test: /\.ts$/,
+      use: [{
+        loader: 'awesome-typescript-loader',
+        options: {
+          useCache: true
+        }
+      }, {
+        loader: 'angular2-template-loader'
+      }, /* {
+        loader: '@angularclass/hmr-loader',
+      }*/],
+      exclude: [/\.(spec|e2e)\.ts$/]
     }, {
       test: /\.scss$/,
       include: [
@@ -52,7 +62,7 @@ module.exports = {
     alias: {
       'react': path.join(__dirname, 'node_modules', 'react'),
     },
-    extensions: ['.js', '.jsx', '.scss', '.css'],
+    extensions: ['.js', '.jsx', '.scss', '.css', '.ts'],
   },
 
   plugins: [

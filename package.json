@@ -4,9 +4,8 @@
   "description": "A Create And Test Tool",
   "main": "lib/index",
   "scripts": {
-    "start": "npm run build:live",
-    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
-    "build:all": "tsc && tnpm link"
+    "start": "tsc -w",
+    "build": "tsc && tnpm link"
   },
   "bin": {
     "pyros": "bin/pyros.js"
