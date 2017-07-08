@@ -8,7 +8,7 @@
     "build": "tsc && tnpm link"
   },
   "bin": {
-    "pyros": "bin/pyros.js"
+    "pyros": "bin/pyros"
   },
   "author": "BlackGanglion",
   "license": "ISC",

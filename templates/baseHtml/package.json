@@ -1,0 +1,13 @@
+{
+  "name": "${projectName}",
+  "version": "1.0.0",
+  "description": "${projectName} create by Pyros",
+  "author": "${author}",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.10.0"
+  },
+  "engines": {
+    "install-node": "${installNode}"
+  }
+}

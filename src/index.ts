@@ -6,13 +6,14 @@ import * as program from "commander";
 import * as inquirer from "inquirer";
 import * as chalk from "chalk";
 
-import { errorLog, FILE_ERROR, INSTALL_ERROR } from "./utils/error";
+import { errorLog, FILE_ERROR, INSTALL_ERROR, RUN_ERROR } from "./utils/error";
 import { version } from "../package.json";
 import { writeJSONFile, readJSONFile, templateEngine } from "./utils/utils";
 
 interface pyrosJSONConfig {
   projectType: string;
   installMethod: string;
+  port: number;
 }
 
 interface templateConfig {
@@ -22,14 +23,27 @@ interface templateConfig {
   installNode: string;
 }
 
-const INPUTLIST = [
+const BASE_INFO_LIST = [
+  {
+    type: "input",
+    name: "projectName",
+    message: "input the name of your project",
+    default: "pyrosProject"
+  },
+  {
+    type: "input",
+    name: "author",
+    message: "input your name",
+    default: "author"
+  },
   {
     type: "list",
     name: "projectType",
     message: "please select the type of project",
     choices: [
+      { name: "baseHtml", value: "baseHtml" },
       { name: "baseReact", value: "baseReact" },
-      { name: "baseAngular", value: "baseAngular" }
+      { name: "baseAngular", value: "baseAngular" },
     ]
   },
   {
@@ -49,18 +63,6 @@ const INPUTLIST = [
     name: "installNode",
     message: "please input the version of install Node",
     default: "6.9.4"
-  },
-  {
-    type: "input",
-    name: "author",
-    message: "input your name",
-    default: "author"
-  },
-  {
-    type: "input",
-    name: "projectName",
-    message: "input the name of your project",
-    default: "pyrosProject"
   },
   {
     type: "input",
@@ -142,6 +144,13 @@ function getWebpackCmd(projectPath) {
   );
 }
 
+function getHttpCmd(projectPath, port) {
+  return execSync(
+    `${projectPath}/node_modules/http-server/bin/http-server -p ${port}`,
+    { stdio: "inherit" }
+  );
+}
+
 async function runProject() {
   const projectPath = ROOT;
   const pyrosConfigFile = path.join(projectPath, "pyros.json");
@@ -153,7 +162,7 @@ async function runProject() {
 
   const res = await readJSONFile(pyrosConfigFile);
 
-  const { projectType } = res as pyrosJSONConfig;
+  const { projectType, port } = res as pyrosJSONConfig;
 
   switch (projectType) {
     case "baseReact": {
@@ -163,7 +172,11 @@ async function runProject() {
     case "baseAngular": {
       getWebpackCmd(projectPath);
       break;
-    }  
+    }
+    case "baseHtml": {
+      getHttpCmd(projectPath, port);
+      break;
+    }
     default:
       break;
   }
@@ -177,7 +190,8 @@ program.version(version);
 program
   .command("create")
   .description("init your project")
-  .action(async function() {
+  .action(async function () {
+    // 基本信息
     const {
       projectType,
       installMethod,
@@ -185,13 +199,14 @@ program
       port,
       author,
       installNode
-    } = await inquirer.prompt(INPUTLIST);
+    } = await inquirer.prompt(BASE_INFO_LIST);
 
     const projectPath = path.join(ROOT, projectName);
     const templatePath = path.join(__dirname, `../templates/${projectType}`);
     const pyrosJSONConfig = {
       projectType,
-      installMethod
+      installMethod,
+      port
     } as pyrosJSONConfig;
     const templateConfig = {
       projectName,

@@ -1,4 +1,5 @@
 node_modules/
 check/
+lib/
 *.log
 yarn.lock
