@@ -44,6 +44,7 @@ const BASE_INFO_LIST = [
       { name: "baseHtml", value: "baseHtml" },
       { name: "baseReact", value: "baseReact" },
       { name: "baseAngular", value: "baseAngular" },
+      { name: "baseTsReact", value: "baseTsReact" },
     ]
   },
   {
@@ -62,7 +63,7 @@ const BASE_INFO_LIST = [
     type: "input",
     name: "installNode",
     message: "please input the version of install Node",
-    default: "6.9.4"
+    default: "8.11.1"
   },
   {
     type: "input",
@@ -170,6 +171,10 @@ async function runProject() {
       break;
     }
     case "baseAngular": {
+      getWebpackCmd(projectPath);
+      break;
+    }
+    case "baseTsReact": {
       getWebpackCmd(projectPath);
       break;
     }
