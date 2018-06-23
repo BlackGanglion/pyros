@@ -44,6 +44,7 @@ const BASE_INFO_LIST = [
       { name: "baseHtml", value: "baseHtml" },
       { name: "baseReact", value: "baseReact" },
       { name: "baseAngular", value: "baseAngular" },
+      { name: "baseRefect", value: "baseRefect" },
     ]
   },
   {
@@ -51,8 +52,8 @@ const BASE_INFO_LIST = [
     name: "installMethod",
     message: "please select the method of package install",
     choices: [
-      { name: "npm", value: "npm" },
       { name: "tnpm", value: "tnpm" },
+      { name: "npm", value: "npm" },
       { name: "cnpm", value: "cnpm" },
       { name: "yarn", value: "yarn" },
       { name: "ayarn", value: "ayarn" }
@@ -170,6 +171,10 @@ async function runProject() {
       break;
     }
     case "baseAngular": {
+      getWebpackCmd(projectPath);
+      break;
+    }
+    case "baseRefect": {
       getWebpackCmd(projectPath);
       break;
     }
